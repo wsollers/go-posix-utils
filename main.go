@@ -6,13 +6,16 @@ import (
   "net/http"
 
   "github.com/spf13/cobra"
+  //"github.com/spf13/viper"
+
+  ping "github.com/wsollers/go-posix-utils/cmd/ping"
+
 )
 
-func main() {
 
-  var rootCmd = &cobra.Command{
-    Use:   "root [sub]",
-    Short: "My root command",
+var rootCmd = &cobra.Command{
+    Use:   "go-posix-utils [sub]",
+    Short: "golang reimplementation of some posix utilities",
     PersistentPreRun: func(cmd *cobra.Command, args []string) {
       fmt.Printf("Inside rootCmd PersistentPreRun with args: %v\n", args)
     },
@@ -28,8 +31,13 @@ func main() {
     PersistentPostRun: func(cmd *cobra.Command, args []string) {
       fmt.Printf("Inside rootCmd PersistentPostRun with args: %v\n", args)
     },
-  }
+}
 
+func main() {
+    
+    rootCmd.AddCommand(ping.PingCmd)
+    rootCmd.Execute()
+/*
   var subCmd = &cobra.Command{
     Use:   "sub [no options!]",
     Short: "My subcommand",
@@ -49,12 +57,13 @@ func main() {
 
   rootCmd.AddCommand(subCmd)
 
+
   rootCmd.SetArgs([]string{""})
   rootCmd.Execute()
   fmt.Println()
   rootCmd.SetArgs([]string{"sub", "arg1", "arg2"})
   rootCmd.Execute()
-
+*/
   http.HandleFunc("/helloworld", func(w http.ResponseWriter, r *http.Request){
         fmt.Fprintf(w, "Hello, World!")
     })

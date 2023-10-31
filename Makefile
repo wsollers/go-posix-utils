@@ -16,3 +16,6 @@ build-image: all
 
 run-image: build-image
 	docker run  -p 4444:8080 --rm go-posix-utils
+
+run-docker-scout: build-image
+	docker scout cves go-posix-utils
