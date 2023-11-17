@@ -1,4 +1,4 @@
-.PHONY: clean all
+.PHONY: clean all run build-image run-image run-docker-scout
 
 go-posix-utils: main.go
 	go build -o bin/go-posix-utils main.go

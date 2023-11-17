@@ -14,30 +14,34 @@ import (
 
 
 var rootCmd = &cobra.Command{
-    Use:   "go-posix-utils [sub]",
-    Short: "golang reimplementation of some posix utilities",
-    PersistentPreRun: func(cmd *cobra.Command, args []string) {
-      fmt.Printf("Inside rootCmd PersistentPreRun with args: %v\n", args)
-    },
-    PreRun: func(cmd *cobra.Command, args []string) {
-      fmt.Printf("Inside rootCmd PreRun with args: %v\n", args)
-    },
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Printf("Inside rootCmd Run with args: %v\n", args)
-    },
-    PostRun: func(cmd *cobra.Command, args []string) {
-      fmt.Printf("Inside rootCmd PostRun with args: %v\n", args)
-    },
-    PersistentPostRun: func(cmd *cobra.Command, args []string) {
-      fmt.Printf("Inside rootCmd PersistentPostRun with args: %v\n", args)
-    },
+  Use:   "go-posix-utils [sub]",
+  Short: "golang reimplementation of some posix utilities",
+  PersistentPreRun: func(cmd *cobra.Command, args []string) {
+    fmt.Printf("Inside rootCmd PersistentPreRun with args: %v\n", args)
+  },
+  PreRun: func(cmd *cobra.Command, args []string) {
+    fmt.Printf("Inside rootCmd PreRun with args: %v\n", args)
+  },
+  Run: func(cmd *cobra.Command, args []string) {
+    fmt.Printf("Inside rootCmd Run with args: %v\n", args)
+  },
+  PostRun: func(cmd *cobra.Command, args []string) {
+    fmt.Printf("Inside rootCmd PostRun with args: %v\n", args)
+  },
+  PersistentPostRun: func(cmd *cobra.Command, args []string) {
+    fmt.Printf("Inside rootCmd PersistentPostRun with args: %v\n", args)
+  },
 }
 
 func main() {
     
-    rootCmd.AddCommand(ping.PingCmd)
-    rootCmd.Execute()
-/*
+  rootCmd.AddCommand(ping.PingCmd)
+  if err := rootCmd.Execute(); err != nil {
+    log.Fatal(err)
+  }
+
+  ping.PingCmd.Run(nil, nil)
+  /*
   var subCmd = &cobra.Command{
     Use:   "sub [no options!]",
     Short: "My subcommand",
@@ -57,13 +61,12 @@ func main() {
 
   rootCmd.AddCommand(subCmd)
 
-
   rootCmd.SetArgs([]string{""})
   rootCmd.Execute()
   fmt.Println()
   rootCmd.SetArgs([]string{"sub", "arg1", "arg2"})
   rootCmd.Execute()
-*/
+  */
   http.HandleFunc("/helloworld", func(w http.ResponseWriter, r *http.Request){
         fmt.Fprintf(w, "Hello, World!")
     })

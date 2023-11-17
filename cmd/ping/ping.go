@@ -2,11 +2,21 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-//    "syscall"
+	//"os"
+  "log"
+  //"net"
+  //"golang.org/x/net/icmp.Echo"
+  //"golang.org/x/net/ipv4"
+	"golang.org/x/net/icmp"
+	//"golang.org/x/net/ipv4"
+	//"golang.org/x/net/ipv6"
+  
+
+//"syscall"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
 )
 
 // https://datatracker.ietf.org/doc/html/rfc792
@@ -25,15 +35,27 @@ var PingCmd = &cobra.Command{
     },
 }
 
-
 func ping() {
-    fmt.Println("Pinging server...")
-    host := viper.GetString("host")
-    fmt.Println("host:", host)
-    if host == "" {
-        fmt.Println("No host provided")
-        os.Exit(1)
-    }
+  fmt.Println("Pinging server...")
+  host := viper.GetString("host")
+  fmt.Println("host:", host)
+  if host == "" {
+    log.Fatal("No host provided")
+  }
+  timeout := viper.GetInt("timeout")
+  if timeout < 0 {
+    log.Fatal("Invalid timeout")
+  }
+  pkt := icmp.Echo {
+    ID: 1,
+    Seq: 1,
+    Data: []byte("Hello"),
+  }
+
+  fmt.Println("pkt:", pkt)
+  // we have a host and a timeout
+  // build a raw icmp ping packet and send it to the specified host
+
 }
 
 
