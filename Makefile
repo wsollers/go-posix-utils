@@ -1,14 +1,16 @@
 .PHONY: clean all run build-image run-image run-docker-scout
 
-go-posix-utils: main.go
-	go build -o bin/go-posix-utils main.go
+build:  
+	go build -o bin/go-posix-utils main.go 
+
+go-posix-utils: build
 
 clean: 
 	rm -rf bin/*
 
-all: clean go-posix-utils
+all: clean build 
 
-run: go-posix-utils
+run: go-posix-utils 
 	./bin/go-posix-utils
 
 build-image: all
@@ -19,3 +21,6 @@ run-image: build-image
 
 run-docker-scout: build-image
 	docker scout cves go-posix-utils
+
+ping-cnn: build
+	sudo ./bin/go-posix-utils ping www.cnn.com 4000
