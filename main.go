@@ -9,6 +9,7 @@ import (
   //"github.com/spf13/viper"
 
   ping "github.com/wsollers/go-posix-utils/cmd/ping"
+  web   "github.com/wsollers/go-posix-utils/cmd/web"
 
 )
 
@@ -36,11 +37,13 @@ var rootCmd = &cobra.Command{
 func main() {
     
   rootCmd.AddCommand(ping.PingCmd)
+  rootCmd.AddCommand(web.WebServCmd)
+
   if err := rootCmd.Execute(); err != nil {
     log.Fatal(err)
   }
 
-  ping.PingCmd.Run(nil, nil)
+//  ping.PingCmd.Run(nil, nil)
   /*
   var subCmd = &cobra.Command{
     Use:   "sub [no options!]",

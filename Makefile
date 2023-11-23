@@ -1,6 +1,7 @@
 .PHONY: clean all run build-image run-image run-docker-scout
 
 build:  
+	go mod tidy
 	go build -o bin/go-posix-utils main.go 
 
 go-posix-utils: build
@@ -24,3 +25,7 @@ run-docker-scout: build-image
 
 ping-cnn: build
 	sudo ./bin/go-posix-utils ping www.cnn.com 4000
+
+web-server: build
+	./bin/go-posix-utils webServ localhost 4444
+
