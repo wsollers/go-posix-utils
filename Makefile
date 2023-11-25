@@ -15,13 +15,13 @@ run: go-posix-utils
 	./bin/go-posix-utils
 
 build-image: all
-	docker build -t go-posix-utils .
+	docker build -t go-posix-utils.dkr . 
 
 run-image: build-image
-	docker run  -p 4444:8080 --rm go-posix-utils
+	docker run --privileged -p 4444:8080 --rm ./go-posix-utils.dkr
 
 run-docker-scout: build-image
-	docker scout cves go-posix-utils
+	docker scout cves go-posix-utils.dkr
 
 ping-cnn: build
 	sudo ./bin/go-posix-utils ping www.cnn.com 4000
