@@ -38,7 +38,7 @@ jobs:
         with:
           image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
           format: 'template'
-          template: '@/contrib/sarif.tpl'
+          template: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
 
